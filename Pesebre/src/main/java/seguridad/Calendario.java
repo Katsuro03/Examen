@@ -2,7 +2,9 @@ package seguridad;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import datos.Conexion;
 
@@ -187,5 +189,42 @@ public class Calendario {
                 ", villancicoNombre='" + villancicoNombre + '\'' +
                 ", fechaVisible=" + fechaVisible +
                 '}';
+    }
+ // Método para obtener estadísticas del calendario
+    public static Map<String, Integer> obtenerEstadisticas() {
+        Map<String, Integer> stats = new HashMap<>();
+        stats.put("total", 0);
+        stats.put("disponibles", 0);
+        stats.put("bloqueados", 0);
+        
+        String sql = "SELECT " +
+                    "COUNT(*) as total, " +
+                    "COUNT(CASE WHEN fecha_visible <= CURRENT_DATE THEN 1 END) as disponibles, " +
+                    "COUNT(CASE WHEN fecha_visible > CURRENT_DATE THEN 1 END) as bloqueados " +
+                    "FROM calendario_adviento";
+        
+        try {
+            Conexion conexion = new Conexion();
+            ResultSet rs = conexion.Consulta(sql);
+            
+            if (rs.next()) {
+                stats.put("total", rs.getInt("total"));
+                stats.put("disponibles", rs.getInt("disponibles"));
+                stats.put("bloqueados", rs.getInt("bloqueados"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error al obtener estadísticas: " + e.getMessage());
+        }
+        
+        return stats;
+    }
+ // Agrega este método a tu clase Calendario.java
+    public static String actualizarFecha(int dia, Date nuevaFecha) {
+        String sql = "UPDATE calendario_adviento SET fecha_visible = '" + 
+                    new java.sql.Date(nuevaFecha.getTime()) + "' WHERE dia = " + dia;
+        
+        Conexion conexion = new Conexion();
+        return conexion.Ejecutar(sql);
     }
 }

@@ -29,6 +29,7 @@
         <img src="imagenes/ups.png" alt="Logo Universidad Politécnica Salesiana" class="logo">
         <h1 class="header-title">Panel de Administración</h1>
         <h2 class="header-subtitle">Gestión de Usuarios</h2>
+</a>
     </header>
 
     <div class="main-container">
@@ -50,6 +51,7 @@
                     <li><a href="index.jsp"><i class="fas fa-home"></i> Inicio</a></li>
                     <li><a href="admin_usuarios.jsp" class="active"><i class="fas fa-users-cog"></i> Administrar Usuarios</a></li>
                     <li><a href="admin_bitacora.jsp"><i class="fas fa-book"></i> Bitácora del Sistema</a></li>
+                    <li><a href="admin_calendario.jsp"><i class="fas fa-book"></i> Gestionar Calendario</a></li>
                     
                 </ul>
             </div>

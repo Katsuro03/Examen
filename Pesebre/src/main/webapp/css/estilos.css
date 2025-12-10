@@ -729,4 +729,106 @@ footer p {
     opacity: 0.8;
 }
 
+/* ===== TABLA BITÁCORA PROFESIONAL ===== */
+
+.tabla-bitacora {
+    font-size: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    border-collapse: collapse;
+    width: 95%;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.tabla-bitacora thead {
+    background: linear-gradient(90deg, var(--ups-blue), var(--ups-light-blue));
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-bitacora thead th {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid var(--ups-dark-blue);
+}
+
+.tabla-bitacora tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-bitacora tbody tr:hover {
+    background-color: rgba(0, 120, 255, 0.10);
+    cursor: pointer;
+}
+
+.tabla-bitacora td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Ajuste de columnas */
+.tabla-bitacora td:first-child {
+    font-weight: bold;
+    color: var(--ups-dark-blue);
+}
+
+/* Acción Insertar */
+.accion-insert {
+    font-weight: bold;
+    background-color: rgba(0, 85, 165, 0.15);
+    color: var(--ups-blue);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* Acción Update */
+.accion-update {
+    font-weight: bold;
+    background-color: rgba(35, 180, 70, 0.15);
+    color: rgb(22, 140, 52);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* Acción Delete */
+.accion-delete {
+    font-weight: bold;
+    background-color: rgba(230, 20, 20, 0.15);
+    color: var(--ups-red);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+/* Ajustes para la tabla bitácora */
+.tabla-bitacora {
+    width: 100%; /* Asegura que la tabla ocupe el ancho completo del contenedor */
+    table-layout: fixed; /* Fuerza un layout fijo para controlar anchos de columna */
+}
+
+/* Anchos específicos para columnas (ajusta según necesidad) */
+.tabla-bitacora th:nth-child(1), .tabla-bitacora td:nth-child(1) { width: 5%; } /* ID */
+.tabla-bitacora th:nth-child(2), .tabla-bitacora td:nth-child(2) { width: 15%; } /* Tabla Afectada */
+.tabla-bitacora th:nth-child(3), .tabla-bitacora td:nth-child(3) { width: 15%; } /* Acción Realizada */
+.tabla-bitacora th:nth-child(4), .tabla-bitacora td:nth-child(4) { 
+    width: 30%; 
+    max-width: 200px; /* Limita el ancho máximo */
+    overflow: hidden; /* Oculta el texto que se desborda */
+    text-overflow: ellipsis; /* Agrega "..." al final */
+    white-space: nowrap; /* Evita saltos de línea */
+} /* Valor Afectado */
+.tabla-bitacora th:nth-child(5), .tabla-bitacora td:nth-child(5) { width: 15%; } /* Fecha */
+.tabla-bitacora th:nth-child(6), .tabla-bitacora td:nth-child(6) { width: 20%; } /* Usuario */
+
+/* Para dispositivos móviles, haz que las celdas sean más pequeñas */
+@media (max-width: 768px) {
+    .tabla-bitacora th, .tabla-bitacora td {
+        padding: 0.5rem; /* Reduce el padding */
+        font-size: 0.9rem; /* Texto más pequeño */
+    }
+    .tabla-bitacora th:nth-child(4), .tabla-bitacora td:nth-child(4) {
+        max-width: 150px; /* Aún más pequeño en móvil */
+    }
+}
+
 }

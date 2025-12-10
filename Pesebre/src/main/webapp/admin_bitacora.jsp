@@ -77,41 +77,72 @@
                     }
                 %>
 
-                <!-- TABLA BITÁCORA -->
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Tabla</th>
-            <th>Operación</th>
-            <th>Valor Anterior</th>
-            <th>Valor Nuevo</th>
-            <th>Fecha</th>
-            <th>Usuario</th>
-            <th>Esquema</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <%
-            BitacoraDAO dao = new BitacoraDAO();
-            List<Bitacora> lista = dao.listar();
-
-            for (Bitacora b : lista) {
-        %>
-        <tr>
-            <td><%= b.getId() %></td>
-            <td><%= b.getTabla() %></td>
-            <td><%= b.getOperacion() %></td>
-            <td><%= b.getValorAnterior() %></td>
-            <td><%= b.getValorNuevo() %></td>
-            <td><%= b.getFecha() %></td>
-            <td><%= b.getUsuario() %></td>
-            <td><%= b.getEsquema() %></td>
-        </tr>
-        <% } %>
-    </tbody>
-</table>
+<!-- En lugar de solo la tabla, envuélvela así: -->
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle tabla-bitacora">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>ID</th>
+                <th>Tabla Afectada</th>
+                <th>Acción Realizada</th>
+                <th>Valor Afectado</th>
+                <th>Fecha</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                BitacoraDAO dao = new BitacoraDAO();
+                List<Bitacora> lista = dao.listar();
+    
+                for (Bitacora b : lista) {
+                    String accionFull = "";
+                    String estilo = "";
+                    String icono = "";
+    
+                    String oper = (b.getOperacion() != null) ? b.getOperacion() : "";
+    
+                    switch (oper) {
+                        case "I":
+                            accionFull = "INSERT";
+                            icono = "<i class='fas fa-plus-circle'></i>";
+                            estilo = "style='color:green;font-weight:bold;'";
+                            break;
+                        case "U":
+                            accionFull = "UPDATE";
+                            icono = "<i class='fas fa-pen'></i>";
+                            estilo = "style='color:blue;font-weight:bold;'";
+                            break;
+                        case "D":
+                            accionFull = "DELETE";
+                            icono = "<i class='fas fa-trash'></i>";
+                            estilo = "style='color:red;font-weight:bold;'";
+                            break;
+                        default:
+                            accionFull = "SIN DEFINIR";
+                            icono = "<i class='fas fa-exclamation-triangle'></i>";
+                            estilo = "style='color:gray;font-weight:bold;'";
+                    }
+            %>
+            <tr class="text-center">
+                <td><%= b.getId() %></td>
+                <td><%= b.getTabla() %></td>
+                <td <%= estilo %>>
+                    <%= icono %> <span style="margin-left:6px;"><%= accionFull %></span>
+                </td>
+                <!-- Aquí mostramos valor nuevo si existe, sino el anterior -->
+                <td>
+                    <%= (b.getValorNuevo() != null && !b.getValorNuevo().isEmpty())
+                            ? b.getValorNuevo()
+                            : b.getValorAnterior() %>
+                </td>
+                <td><%= b.getFecha() %></td>
+                <td><%= b.getUsuario() %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
 
 
             </section>
